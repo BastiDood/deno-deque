@@ -126,10 +126,3 @@ export class Deque<T> {
     }
 }
 
-const queue = new Deque<number>();
-for (const i of Array(10).keys()) queue.unshift(i);
-console.assert(!queue.empty);
-console.assert(queue.size === 10);
-console.assert(queue.front === 9);
-console.assert(queue.back === 0);
-
