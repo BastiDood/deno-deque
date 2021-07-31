@@ -137,7 +137,7 @@ export class Deque<T> {
 
             // Shift pointers accordingly
             this.#tail -= this.#head;
-            this.#head = 0
+            this.#head = 0;
 
             // Discard old array
             this.#list = deleted;
