@@ -179,3 +179,54 @@ Deno.test({
         assert(queue.empty);
     },
 });
+
+Deno.test({
+    name: 'should add single item - plenty of capacity',
+    fn() {
+        // Fill up queue to initial capacity
+        const queue = new Deque();
+        for (const i of Array(5).keys()) assertStrictEquals(queue.push(i), i + 1);
+        assert(queue.capacity - queue.length > 1);
+
+        // Test lengths
+        const oldLength = queue.length;
+        const newLength = queue.push(5);
+        assertStrictEquals(newLength, oldLength + 1);
+        assertStrictEquals(queue.length, newLength);
+        assertStrictEquals(newLength, 6);
+    },
+});
+
+Deno.test({
+    name: 'should add single item - exact capacity',
+    fn() {
+        // Fill up queue to initial capacity
+        const queue = new Deque();
+        for (const i of Array(15).keys()) assertStrictEquals(queue.push(i), i + 1);
+        assert(queue.capacity - queue.length === 1);
+
+        // Test lengths
+        const oldLength = queue.length;
+        const newLength = queue.push(15);
+        assertStrictEquals(newLength, oldLength + 1);
+        assertStrictEquals(queue.length, newLength);
+        assertStrictEquals(newLength, 16);
+    },
+});
+
+Deno.test({
+    name: 'should add single item - over capacity',
+    fn() {
+        // Fill up queue to initial capacity
+        const queue = new Deque();
+        for (const i of Array(16).keys()) assertStrictEquals(queue.push(i), i + 1);
+        assert(queue.capacity / queue.length === 2);
+
+        // Test lengths
+        const oldLength = queue.length;
+        const newLength = queue.push(16);
+        assertStrictEquals(newLength, oldLength + 1);
+        assertStrictEquals(queue.length, newLength);
+        assertStrictEquals(newLength, 17);
+    },
+});
