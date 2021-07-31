@@ -1,4 +1,8 @@
-import { assert, assertStrictEquals } from 'https://deno.land/std@0.103.0/testing/asserts.ts';
+import {
+    assert,
+    assertEquals,
+    assertStrictEquals,
+} from 'https://deno.land/std@0.103.0/testing/asserts.ts';
 import { Deque } from '../mod.ts';
 
 Deno.test({
@@ -228,5 +232,27 @@ Deno.test({
         assertStrictEquals(newLength, oldLength + 1);
         assertStrictEquals(queue.length, newLength);
         assertStrictEquals(newLength, 17);
+    },
+});
+
+Deno.test({
+    name: 'should create equivalent array',
+    fn() {
+        // Insert elements
+        const queue = new Deque<number>();
+        queue.unshift(1);
+        queue.unshift(2);
+        queue.push(3);
+        queue.push(4);
+        queue.unshift(5);
+        queue.push(6);
+        assertEquals(Array.from(queue), [5, 2, 1, 3, 4, 6]);
+
+        // Delete elements
+        queue.pop();
+        queue.shift();
+        queue.shift();
+        queue.pop();
+        assertEquals(Array.from(queue), [1, 3]);
     },
 });
