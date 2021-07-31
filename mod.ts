@@ -103,13 +103,22 @@ export class Deque<T> {
         return this.#list[index];
     }
 
-    #copyArray(shouldFullCopy: boolean) {
-        if (!shouldFullCopy && this.#head <= this.#tail)
-            return this.#list.slice(this.#head, this.#tail);
+    *[Symbol.iterator]() {
+        const head = this.#head;
+        const tail = this.#tail;
 
-        const left = this.#list.slice(0, this.#tail);
-        const right = this.#list.slice(this.#head, this.#list.length);
-        return [...right, ...left];
+        // Simply yield elements from left to right
+        if (head <= tail) {
+            for (let i = head; i < tail; ++i) yield this.#list[i];
+            return;
+        }
+
+        // Yield elements from the head to the end
+        const capacity = this.capacity;
+        for (let i = head; i < capacity; ++i) yield this.#list[i];
+
+        // Then, wrap around and yield elements from start to tail
+        for (let i = 0; i < tail; ++i) yield this.#list[i];
     }
 
     #shrinkArray() {
@@ -118,18 +127,28 @@ export class Deque<T> {
     }
 
     #growArray() {
-        if (this.#head) {
-            // Copy existing data, head to end, then beginning to tail.
-            this.#list = this.#copyArray(true);
-            this.#head = 0;
+        // Perform rotate-left if necessary
+        if (this.#head > 0) {
+            // Copy existing data from head to end
+            const deleted = this.#list.splice(this.#head);
+
+            // Then, plop all preceding elements after `deleted`
+            deleted.push(...this.#list);
+
+            // Shift pointers accordingly
+            this.#tail -= this.#head;
+            this.#head = 0
+
+            // Discard old array
+            this.#list = deleted;
         }
 
         // Head is at 0 and array is now full,
         // therefore safe to extend
         this.#tail = this.#list.length;
 
+        // Double the capacity
         this.#list.length *= 2;
         this.#capacityMask = (this.#capacityMask << 1) | 1;
     }
 }
-
