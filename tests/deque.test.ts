@@ -123,3 +123,59 @@ Deno.test({
         assertStrictEquals(queue.shift(), 100);
     },
 });
+
+Deno.test({
+    name: 'should peek at correct index - postiive index',
+    fn() {
+        const queue = new Deque<number>();
+        const nums = Array(10);
+        for (const i of nums.keys()) assertStrictEquals(queue.push(i), i + 1);
+        for (const i of nums.keys()) assertStrictEquals(queue.peekAt(i), i);
+    },
+});
+
+Deno.test({
+    name: 'should peek `undefined` when out of bounds - positive index',
+    fn() {
+        const queue = new Deque<number>();
+        for (const i of Array(10).keys()) assertStrictEquals(queue.push(i), i + 1);
+        assertStrictEquals(queue.peekAt(9), 9);
+        assertStrictEquals(queue.peekAt(10), undefined);
+        assertStrictEquals(queue.peekAt(20), undefined);
+    },
+});
+
+Deno.test({
+    name: 'should peek at correct index - negative index',
+    fn() {
+        const queue = new Deque<number>();
+        for (const i of Array(10).keys()) assertStrictEquals(queue.push(i), i + 1);
+        assertStrictEquals(queue.peekAt(0), 0);
+        assertStrictEquals(queue.peekAt(-1), 9);
+        assertStrictEquals(queue.peekAt(-2), 8);
+        assertStrictEquals(queue.peekAt(-3), 7);
+        assertStrictEquals(queue.peekAt(-4), 6);
+        assertStrictEquals(queue.peekAt(-5), 5);
+    },
+});
+
+Deno.test({
+    name: 'should peek `undefined` when out of bounds - negative index',
+    fn() {
+        const queue = new Deque<number>();
+        for (const i of Array(10).keys()) assertStrictEquals(queue.push(i), i + 1);
+        assertStrictEquals(queue.peekAt(-10), 0);
+        assertStrictEquals(queue.peekAt(-11), undefined);
+        assertStrictEquals(queue.peekAt(-12), undefined);
+    },
+});
+
+Deno.test({
+    name: 'should perform soft clear',
+    fn() {
+        const queue = new Deque<number>();
+        for (const i of Array(10).keys()) assertStrictEquals(queue.push(i), i + 1);
+        queue.clear();
+        assert(queue.empty);
+    },
+});
