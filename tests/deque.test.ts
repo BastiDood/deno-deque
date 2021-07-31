@@ -32,7 +32,6 @@ Deno.test({
         const first = deque.push(0);
         assertStrictEquals(first, 1);
         assertStrictEquals(deque.size, 1);
-        assertStrictEquals(deque.size, 1);
         assertStrictEquals(deque.front, 0);
         assertStrictEquals(deque.back, 0);
 
@@ -47,5 +46,42 @@ Deno.test({
         assertStrictEquals(deque.size, 3);
         assertStrictEquals(deque.front, 0);
         assertStrictEquals(deque.back, null);
+    },
+});
+
+Deno.test({
+    name: 'should unshift 10 numbers',
+    fn() {
+        const queue = new Deque<number>();
+        for (const i of Array(10).keys()) queue.unshift(i);
+        assert(!queue.empty);
+        assertStrictEquals(queue.size, 10);
+        assertStrictEquals(queue.front, 9);
+        assertStrictEquals(queue.back, 0);
+    },
+});
+
+Deno.test({
+    name: 'should unshift falsy values except `undefined`',
+    fn() {
+        const deque = new Deque();
+
+        const first = deque.unshift(0);
+        assertStrictEquals(first, 1);
+        assertStrictEquals(deque.size, 1);
+        assertStrictEquals(deque.front, 0);
+        assertStrictEquals(deque.back, 0);
+
+        const second = deque.unshift('');
+        assertStrictEquals(second, 2);
+        assertStrictEquals(deque.size, 2);
+        assertStrictEquals(deque.front, '');
+        assertStrictEquals(deque.back, 0);
+
+        const third = deque.unshift(null);
+        assertStrictEquals(third, 3);
+        assertStrictEquals(deque.size, 3);
+        assertStrictEquals(deque.front, null);
+        assertStrictEquals(deque.back, 0);
     },
 });
