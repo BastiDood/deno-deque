@@ -2,7 +2,7 @@ export class Deque<T> {
     #head = 0;
     #tail = 0;
     #capacityMask = 0b11;
-    #list: (T | undefined)[] = new Array(this.#capacityMask);
+    #list: (T | undefined)[] = new Array(this.#capacityMask + 1);
 
     /** Returns the current number of elements in the queue. */
     get size() {
@@ -38,7 +38,7 @@ export class Deque<T> {
         this.#list[this.#head] = item;
         if (this.#tail === this.#head) this.#growArray();
         if (this.#head < this.#tail) return this.#tail - this.#head;
-        else return this.#capacityMask + 1 - (this.#head - this.#tail);
+        return this.#capacityMask + 1 - (this.#head - this.#tail);
     }
 
     /** Remove first element. */
@@ -125,3 +125,11 @@ export class Deque<T> {
         this.#capacityMask = (this.#capacityMask << 1) | 1;
     }
 }
+
+const queue = new Deque<number>();
+for (const i of Array(10).keys()) queue.unshift(i);
+console.assert(!queue.empty);
+console.assert(queue.size === 10);
+console.assert(queue.front === 9);
+console.assert(queue.back === 0);
+
