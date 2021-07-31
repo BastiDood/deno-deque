@@ -4,8 +4,13 @@ export class Deque<T> {
     #capacityMask = 0b11;
     #list: (T | undefined)[] = new Array(this.#capacityMask + 1);
 
+    /** Returns the capacity of the queue. That is, that of the inner buffer. */
+    get capacity() {
+        return this.#list.length;
+    }
+
     /** Returns the current number of elements in the queue. */
-    get size() {
+    get length() {
         return this.#head <= this.#tail
             ? this.#tail - this.#head
             : this.#capacityMask + 1 - (this.#head - this.#tail);
@@ -88,7 +93,7 @@ export class Deque<T> {
     /** View the item at the specific index. */
     peekAt(index: number) {
         // Disallow out of bounds access
-        const len = this.size;
+        const len = this.length;
         if (index >= len || index < -len) return;
 
         // Wrap-around index
