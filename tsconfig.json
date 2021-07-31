@@ -1,5 +1,5 @@
 {
-    "include": ["mod.ts", "tests/**/*.test.ts"],
+    "include": ["mod.ts", "tests/**/*.ts"],
     "compilerOptions": {
         "target": "ES2020",
         "strict": true,
