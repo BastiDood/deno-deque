@@ -43,9 +43,9 @@ export class Deque<T> {
 
     /** Remove first element. */
     shift() {
-        const head = this.#head;
-        if (head === this.#tail) return;
+        if (this.empty) return;
 
+        const head = this.#head;
         const item = this.#list[head];
         this.#list[head] = undefined;
         this.#head = (head + 1) & this.#capacityMask;
@@ -62,7 +62,7 @@ export class Deque<T> {
         this.#list[tail] = item;
         this.#tail = (tail + 1) & this.#capacityMask;
 
-        if (this.#tail === this.#head) this.#growArray();
+        if (this.empty) this.#growArray();
 
         if (this.#head < this.#tail) return this.#tail - this.#head;
 
@@ -71,11 +71,12 @@ export class Deque<T> {
 
     /** Remove last element. */
     pop() {
-        const tail = this.#tail;
-        if (tail === this.#head) return;
+        if (this.empty) return;
 
+        const tail = this.#tail;
         const len = this.#list.length;
         this.#tail = (tail - 1 + len) & this.#capacityMask;
+
         const item = this.#list[this.#tail];
         this.#list[this.#tail] = undefined;
 
@@ -118,7 +119,8 @@ export class Deque<T> {
             this.#head = 0;
         }
 
-        // head is at 0 and array is now full, safe to extend
+        // Head is at 0 and array is now full,
+        // therefore safe to extend
         this.#tail = this.#list.length;
 
         this.#list.length *= 2;
