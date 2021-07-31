@@ -13,16 +13,39 @@ Deno.test({
 });
 
 Deno.test({
-    name: 'should push 4 numbers',
+    name: 'should push 10 numbers',
     fn() {
         const queue = new Deque<number>();
-        queue.push(1);
-        queue.push(2);
-        queue.push(3);
-        queue.push(4);
+        for (const i of Array(10).keys()) queue.push(i);
         assert(!queue.empty);
-        assertStrictEquals(queue.size, 4);
-        assertStrictEquals(queue.front, 1);
-        assertStrictEquals(queue.back, 4);
+        assertStrictEquals(queue.size, 10);
+        assertStrictEquals(queue.front, 0);
+        assertStrictEquals(queue.back, 9);
+    },
+});
+
+Deno.test({
+    name: 'should push falsy values except `undefined`',
+    fn() {
+        const deque = new Deque();
+
+        const first = deque.push(0);
+        assertStrictEquals(first, 1);
+        assertStrictEquals(deque.size, 1);
+        assertStrictEquals(deque.size, 1);
+        assertStrictEquals(deque.front, 0);
+        assertStrictEquals(deque.back, 0);
+
+        const second = deque.push('');
+        assertStrictEquals(second, 2);
+        assertStrictEquals(deque.size, 2);
+        assertStrictEquals(deque.front, 0);
+        assertStrictEquals(deque.back, '');
+
+        const third = deque.push(null);
+        assertStrictEquals(third, 3);
+        assertStrictEquals(deque.size, 3);
+        assertStrictEquals(deque.front, 0);
+        assertStrictEquals(deque.back, null);
     },
 });
