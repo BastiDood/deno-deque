@@ -85,3 +85,41 @@ Deno.test({
         assertStrictEquals(deque.back, 0);
     },
 });
+
+Deno.test({
+    name: 'empty queue should pop `undefined`',
+    fn() {
+        const queue = new Deque();
+        assertStrictEquals(queue.pop(), undefined);
+    },
+});
+
+Deno.test({
+    name: 'should pop item at the back of queue',
+    fn() {
+        const queue = new Deque<number>();
+        assertStrictEquals(queue.unshift(200), 1);
+        assertStrictEquals(queue.push(100), 2);
+        assertStrictEquals(queue.pop(), 100);
+        assertStrictEquals(queue.pop(), 200);
+    },
+});
+
+Deno.test({
+    name: 'empty queue should shift `undefined`',
+    fn() {
+        const queue = new Deque();
+        assertStrictEquals(queue.shift(), undefined);
+    },
+});
+
+Deno.test({
+    name: 'should pop item at the front of queue',
+    fn() {
+        const queue = new Deque<number>();
+        assertStrictEquals(queue.unshift(200), 1);
+        assertStrictEquals(queue.push(100), 2);
+        assertStrictEquals(queue.shift(), 200);
+        assertStrictEquals(queue.shift(), 100);
+    },
+});
