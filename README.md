@@ -4,7 +4,7 @@ A fast [double-ended queue](https://en.wikipedia.org/wiki/Double-ended_queue) wr
 # Acknowledgements
 This project is practically a rewrite of the popular [Denque library](https://github.com/invertase/denque). Due to Denque's minimum compatiblity with Node.js v0.10, the original code uses old JavaScript patterns that no longer apply in modern applications. The goal of this rewrite, then, is to serve as a modern adaptation of the core logic.
 
-> **DISCLAIMER:** This rewrite is not endorsed by nor affiliated with the [Denque project](https://github.com/invertase/denque) and [its authors](https://invertase.io/).
+> **DISCLAIMER:** This rewrite is _not_ endorsed by nor affiliated with the [Denque project](https://github.com/invertase/denque) and [its authors](https://invertase.io/).
 
 # Compatibility and Limitations
 Since this project intends to be a rewrite, I have taken the liberty to only include a subset of Denque's features that I consider to be essential. From a pedantic standpoint, a double-ended queue should only support four core operations: `push`, `pop`, and `unshift`, and `shift`.
@@ -18,6 +18,8 @@ Finally, some methods have also been renamed. In particular, [`peekAt`](https://
 With that said, the next section covers the public interface of the library.
 
 # Usage
+> **NOTE:** _All_ queue operations are `O(1)`.
+
 ```typescript
 // In production, please don't forget to lock to a specific version!
 import { Deque } from 'https://deno.land/x/deno-deque';
