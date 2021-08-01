@@ -56,14 +56,3 @@ Deno.test({
         assertStrictEquals(stack.pop(), 200);
     },
 });
-
-Deno.test({
-    name: 'should shift item at the front of queue',
-    fn() {
-        const queue = new Deque<number>();
-        assertStrictEquals(queue.unshift(200), 1);
-        assertStrictEquals(queue.push(100), 2);
-        assertStrictEquals(queue.shift(), 200);
-        assertStrictEquals(queue.shift(), 100);
-    },
-});
