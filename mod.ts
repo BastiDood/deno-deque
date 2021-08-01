@@ -23,12 +23,12 @@ export class Deque<T> {
 
     /** Alias for `Deque#peekAt(0)`. */
     get front() {
-        return this.peekAt(0);
+        return this.at(0);
     }
 
     /** Alias for `Deque#peekAt(-1)`. */
     get back() {
-        return this.peekAt(-1);
+        return this.at(-1);
     }
 
     /** Performs a "soft" clear. This does **not** reset capacity. */
@@ -91,7 +91,7 @@ export class Deque<T> {
     }
 
     /** View the item at the specific index. */
-    peekAt(index: number) {
+    at(index: number) {
         // Disallow out of bounds access
         const len = this.length;
         if (index >= len || index < -len) return;

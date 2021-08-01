@@ -18,7 +18,7 @@ Deno.test({
         const queue = new Deque<number>();
         const nums = Array(10);
         for (const i of nums.keys()) assertStrictEquals(queue.push(i), i + 1);
-        for (const i of nums.keys()) assertStrictEquals(queue.peekAt(i), i);
+        for (const i of nums.keys()) assertStrictEquals(queue.at(i), i);
     },
 });
 
@@ -27,9 +27,9 @@ Deno.test({
     fn() {
         const queue = new Deque<number>();
         for (const i of Array(10).keys()) assertStrictEquals(queue.push(i), i + 1);
-        assertStrictEquals(queue.peekAt(9), 9);
-        assertStrictEquals(queue.peekAt(10), undefined);
-        assertStrictEquals(queue.peekAt(20), undefined);
+        assertStrictEquals(queue.at(9), 9);
+        assertStrictEquals(queue.at(10), undefined);
+        assertStrictEquals(queue.at(20), undefined);
     },
 });
 
@@ -38,12 +38,12 @@ Deno.test({
     fn() {
         const queue = new Deque<number>();
         for (const i of Array(10).keys()) assertStrictEquals(queue.push(i), i + 1);
-        assertStrictEquals(queue.peekAt(0), 0);
-        assertStrictEquals(queue.peekAt(-1), 9);
-        assertStrictEquals(queue.peekAt(-2), 8);
-        assertStrictEquals(queue.peekAt(-3), 7);
-        assertStrictEquals(queue.peekAt(-4), 6);
-        assertStrictEquals(queue.peekAt(-5), 5);
+        assertStrictEquals(queue.at(0), 0);
+        assertStrictEquals(queue.at(-1), 9);
+        assertStrictEquals(queue.at(-2), 8);
+        assertStrictEquals(queue.at(-3), 7);
+        assertStrictEquals(queue.at(-4), 6);
+        assertStrictEquals(queue.at(-5), 5);
     },
 });
 
@@ -52,9 +52,9 @@ Deno.test({
     fn() {
         const queue = new Deque<number>();
         for (const i of Array(10).keys()) assertStrictEquals(queue.push(i), i + 1);
-        assertStrictEquals(queue.peekAt(-10), 0);
-        assertStrictEquals(queue.peekAt(-11), undefined);
-        assertStrictEquals(queue.peekAt(-12), undefined);
+        assertStrictEquals(queue.at(-10), 0);
+        assertStrictEquals(queue.at(-11), undefined);
+        assertStrictEquals(queue.at(-12), undefined);
     },
 });
 
