@@ -142,6 +142,36 @@ Deno.test({
 });
 
 Deno.test({
+    name: 'should work on more data',
+    fn() {
+        const queue = new Deque<number>();
+        const range = Array.from(Array(50).keys());
+        for (const i of range) assertStrictEquals(queue.push(i), i + 1);
+
+        // Delete items
+        assertStrictEquals(queue.pop(), 49);
+        assertStrictEquals(queue.pop(), 48);
+        assertStrictEquals(queue.shift(), 0);
+        assertStrictEquals(queue.shift(), 1);
+        assertStrictEquals(queue.shift(), 2);
+        assertStrictEquals(queue.pop(), 47);
+        assertStrictEquals(queue.pop(), 46);
+
+        // Undo the changes from earlier
+        assertStrictEquals(queue.push(46), 44);
+        assertStrictEquals(queue.push(47), 45);
+        assertStrictEquals(queue.unshift(2), 46);
+        assertStrictEquals(queue.unshift(1), 47);
+        assertStrictEquals(queue.unshift(0), 48);
+        assertStrictEquals(queue.push(48), 49);
+        assertStrictEquals(queue.push(49), 50);
+
+        // Check if everything has been undone properly
+        assertEquals(Array.from(queue), range);
+    },
+});
+
+Deno.test({
     name: 'example from README should work',
     fn() {
         // Construct a new double-ended queue.
