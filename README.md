@@ -22,7 +22,7 @@ With that said, the next section covers the public interface of the library.
 
 ```typescript
 // In production, please don't forget to lock to a specific version!
-import { Deque } from 'https://deno.land/x/deno-deque/mod.ts';
+import { Deque } from 'https://deno.land/x/deno_deque/mod.ts';
 
 // Construct a new double-ended queue.
 const deque = new Deque<number>();
