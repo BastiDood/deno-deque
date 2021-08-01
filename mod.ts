@@ -1,3 +1,4 @@
+/** A double-ended queue. All queue operations are `O(1)`. */
 export class Deque<T> {
     #head = 0;
     #tail = 0;
@@ -36,7 +37,7 @@ export class Deque<T> {
         this.#head = this.#tail = 0;
     }
 
-    /** Insert item to first slot. */
+    /** Inserts item to first slot. Returns the new length of the deque. */
     unshift(item: T) {
         const len = this.#list.length;
         this.#head = (this.#head - 1 + len) & this.#capacityMask;
@@ -46,7 +47,7 @@ export class Deque<T> {
         return this.#capacityMask + 1 - (this.#head - this.#tail);
     }
 
-    /** Remove first element. */
+    /** Removes and returns the first element. */
     shift() {
         if (this.empty) return;
 
@@ -61,7 +62,7 @@ export class Deque<T> {
         return item;
     }
 
-    /** Insert item to last slot. */
+    /** Inserts item to the last slot. Returns the new length of the deque. */
     push(item: T) {
         const tail = this.#tail;
         this.#list[tail] = item;
@@ -74,7 +75,7 @@ export class Deque<T> {
         return this.#capacityMask + 1 - (this.#head - this.#tail);
     }
 
-    /** Remove last element. */
+    /** Removes and returns the last element. */
     pop() {
         if (this.empty) return;
 
@@ -90,7 +91,7 @@ export class Deque<T> {
         return item;
     }
 
-    /** View the item at the specific index. */
+    /** View the item at the specific index (without removing). */
     at(index: number) {
         // Disallow out of bounds access
         const len = this.length;
