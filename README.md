@@ -1,5 +1,5 @@
 # Deno Deque
-A fast [double-ended queue](https://en.wikipedia.org/wiki/Double-ended_queue) written in modern [TypeScript](https://www.typescriptlang.org/) for the [Deno](https://deno.land/) runtime.
+A fast zero-dependency [double-ended queue](https://en.wikipedia.org/wiki/Double-ended_queue) written in modern [TypeScript](https://www.typescriptlang.org/) for the [Deno](https://deno.land/) runtime.
 
 # Acknowledgements
 This project is practically a rewrite of the popular [Denque library](https://github.com/invertase/denque). Due to Denque's minimum compatiblity with Node.js v0.10, the original code uses old JavaScript patterns that no longer apply in modern applications. The goal of this rewrite, then, is to serve as a modern adaptation of the core logic.
