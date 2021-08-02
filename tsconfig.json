@@ -1,7 +1,6 @@
 {
     "include": ["mod.ts", "tests/**/*.ts", "benches/**/*.ts"],
     "compilerOptions": {
-        "target": "ESNext",
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
